@@ -2,6 +2,7 @@
 #define OROCOS_KUKA_SEND_JOINT_POSITIONS_COMPONENT_HPP
 
 #include <rtt/RTT.hpp>
+#include <kuka_lwr_fri/friComm.h>
 #include <motion_control_msgs/typekit/Types.hpp>
 
 using namespace RTT;
@@ -15,5 +16,14 @@ class Kuka_send_joint_positions : public RTT::TaskContext{
     void stopHook();
     void cleanupHook();
     motion_control_msgs::JointPositions m_joint_pos_command;
+    motion_control_msgs::JointVelocities m_joint_vel_command;
+    tFriKrlData fri_to_krl;
+    tFriKrlData fri_frm_krl;
+    double distance;
+    RTT::InputPort<double> port_distance;
+    RTT::OutputPort<motion_control_msgs::JointPositions> port_command;
+    RTT::OutputPort<motion_control_msgs::JointVelocities> port_vel_command;
+    RTT::OutputPort<tFriKrlData> port_fri_to_krl;
+    RTT::InputPort<tFriKrlData> port_fri_frm_krl;
 };
 #endif

@@ -1,0 +1,20 @@
+import("lwr_fri")
+import("kuka_send_joint_positions")
+
+loadComponent("component_send", "Kuka_send_joint_positions")
+loadComponent("lwr","lwr_fri::FRIComponent")
+
+setActivity("lwr",0, 99, ORO_SCHED_RT)
+
+lwr.udp_port=49938
+lwr.configure
+
+var ConnPolicy cp
+cp.type = DATA
+cp.lock_policy = LOCKED
+connect("lwr.JointVelocityCommand", "component_send.jointVelocitiesCommand", cp)
+connect("lwr.toKRL", "component_send.toKRL", cp)
+
+component_send.configure
+component_send.setPeriod(0.02)
+lwr.start
