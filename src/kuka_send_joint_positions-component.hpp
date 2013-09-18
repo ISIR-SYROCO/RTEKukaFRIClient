@@ -20,10 +20,14 @@ class Kuka_send_joint_positions : public RTT::TaskContext{
     tFriKrlData fri_to_krl;
     tFriKrlData fri_frm_krl;
     double distance;
+    int direction;
     RTT::InputPort<double> port_distance;
+	RTT::InputPort< sensor_msgs::JointState > port_joint_state;
     RTT::OutputPort<motion_control_msgs::JointPositions> port_command;
     RTT::OutputPort<motion_control_msgs::JointVelocities> port_vel_command;
     RTT::OutputPort<tFriKrlData> port_fri_to_krl;
     RTT::InputPort<tFriKrlData> port_fri_frm_krl;
+
+    RTT::OutputPort<double> port_dummy_double;
 };
 #endif
