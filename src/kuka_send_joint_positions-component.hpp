@@ -4,6 +4,7 @@
 #include <rtt/RTT.hpp>
 #include <kuka_lwr_fri/friComm.h>
 #include <motion_control_msgs/typekit/Types.hpp>
+#include <sensor_msgs/typekit/Types.hpp>
 
 using namespace RTT;
 

@@ -57,7 +57,7 @@ void Kuka_send_joint_positions::updateHook(){
         direction = 1;
     }
 
-    alpha = 0.10 - std::min( std::max(distance, 0.10), 0.60 );
+    double alpha = 0.10 - std::min( std::max(distance, 0.10), 0.60 );
     m_joint_vel_command.velocities[2] = 0.1 * alpha * direction;
 
     port_vel_command.write(m_joint_vel_command);

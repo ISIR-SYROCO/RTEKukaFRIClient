@@ -7,6 +7,7 @@
     <author>Unknown Author</author>
     <depend package="rtt" />
     <depend package="rtt_motion_control_msgs" />
+    <depend package="rtt_sensor_msgs" />
     <depend package="kuka_lwr_fri" />
 </package>
 
