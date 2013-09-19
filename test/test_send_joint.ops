@@ -12,8 +12,10 @@ lwr.configure
 var ConnPolicy cp
 cp.type = DATA
 cp.lock_policy = LOCKED
+connect("lwr.JointState", "component_send.jointState", cp)
 connect("lwr.JointVelocityCommand", "component_send.jointVelocitiesCommand", cp)
 connect("lwr.toKRL", "component_send.toKRL", cp)
+connect("component_send.distance", "component_send.dummy_distance_out", cp)
 
 component_send.configure
 component_send.setPeriod(0.02)

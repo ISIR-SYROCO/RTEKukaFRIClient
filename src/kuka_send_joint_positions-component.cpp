@@ -48,12 +48,15 @@ void Kuka_send_joint_positions::updateHook(){
   sensor_msgs::JointState dataJState;
   RTT::FlowStatus fs = port_joint_state.read(dataJState);
   if(fs == RTT::NewData){
-    std::vector<double> q(dataJState.position);// = dataJState.position;//dataJState.velocity  dataJState.effort
+    std::vector<double> q;
+    for(std::vector<double>::iterator iter=dataJState.position.begin(); iter!=dataJState.position.end(); ++iter){
+        q.push_back(*iter);
+    }// = dataJState.position;//dataJState.velocity  dataJState.effort
 
-    if(q[2] > 1.0471975512 && direction == 1){
+    if(q[2] < -1.0471975512 && direction == 1){
         direction = -1;
     }
-    else if( q[2] < -1.0471975512 && direction == -1){
+    else if( q[2] > 1.0471975512 && direction == -1){
         direction = 1;
     }
 
