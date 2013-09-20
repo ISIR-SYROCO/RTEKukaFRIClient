@@ -21,6 +21,7 @@ endif()
 include( ${OROCOS-RTT_USE_FILE_PATH}/UseOROCOS-RTT.cmake )
 
 # Rest of the configuration is in src/
+add_subdirectory( include )
 add_subdirectory( src )
 
 #
