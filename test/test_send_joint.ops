@@ -1,5 +1,5 @@
 import("lwr_fri")
-import("kuka_send_joint_positions")
+import("RTEKukaFRIClient")
 
 loadComponent("component_send", "Kuka_send_joint_positions")
 loadComponent("lwr","lwr_fri::FRIComponent")
