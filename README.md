@@ -10,3 +10,11 @@ Dependencies:
 
 This component depends on the ROS package `kuka_robot_hardware`
 
+Install:
+========
+
+Go to the `ros_workspace` directory, and add the package:
+
+    cd ros_workspace
+    wstool set RTEKukaFRIClient --git https://github.com/XDE-ISIR/RTEKukaFRIClient.git
+    wstool update RTEKukaFRIClient
