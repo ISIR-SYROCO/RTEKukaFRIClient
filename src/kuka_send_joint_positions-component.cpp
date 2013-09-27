@@ -63,7 +63,7 @@ void Kuka_send_joint_positions::updateHook(){
     }
 
     double alpha = std::min( std::max(distance, 0.15), 1.0 ) - 0.15;
-    m_joint_vel_command.velocities[2] = mean.getMean( 0.2 * alpha * direction );
+    m_joint_vel_command.velocities[2] = mean.getMean( 0.4 * alpha * direction );
 
     port_vel_command.write(m_joint_vel_command);
 
