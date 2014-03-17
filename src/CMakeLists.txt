@@ -12,7 +12,9 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 #
 orocos_library(movingMean movingMean.cpp)
 orocos_component(kuka_send_joint_positions kuka_send_joint_positions-component.cpp) # ...you may add multiple source files
+orocos_component(DemoKukaKinectKaramaRTNET demoKukaKinectKarama-rtnetcomponent.cpp) # ...you may add multiple source files
 target_link_libraries(kuka_send_joint_positions movingMean)
+target_link_libraries(DemoKukaKinectKaramaRTNET movingMean)
 #
 # You may add multiple orocos_component statements.
 
@@ -21,7 +23,7 @@ target_link_libraries(kuka_send_joint_positions movingMean)
 #
 # Installs in the include/orocos/kuka_send_joint_positions/ directory
 #
-orocos_install_headers(kuka_send_joint_positions-component.hpp movingMean.hpp) # ...you may add multiple header files
+orocos_install_headers(kuka_send_joint_positions-component.hpp movingMean.hpp demoKukaKinectKarama-rtnetcomponent.hpp) # ...you may add multiple header files
 #
 # You may add multiple orocos_install_headers statements.
 
