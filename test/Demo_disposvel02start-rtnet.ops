@@ -3,20 +3,26 @@ import("rtt_rosnode")
 import("tf_reader")
 import("disposvel")
 import("lwr_fri")
-import("kuka_send_joint_positions")
+//import("RTEKukaFRIClient")
+import("friExamples")
 import("directKinematics")
 import("tfRobotSubscriber")
 
 //construstion des composants
 loadComponent("tf","tf_reader::Tf_reader")
 loadComponent("getDistances","Disposvel")
-loadComponent("component_send", "Kuka_send_joint_positions")
+//loadComponent("component_send", "Kuka_send_joint_positions")
+loadComponent("friExample","RTEKukaFRIClient")
 loadComponent("lwr","lwr_fri::FRIRTNetComponent")
 loadComponent("RobotState","DirectKinematics")
 loadComponent("tfSub","TfRobotSubscriber")
 
 
 setActivity("lwr",0, 99, ORO_SCHED_RT)
+setActivity("tfSub",0.05, 20, ORO_SCHED_RT)
+setActivity("RobotState",0.01, 20, ORO_SCHED_RT)
+setActivity("getDistances",0.02, 30, ORO_SCHED_RT)
+setActivity("friExample",0.02, 40, ORO_SCHED_RT)
 
 //se connecter au topic tf de ROS
 stream("tf.tf_in",ros.topic("/tf"))
@@ -28,23 +34,22 @@ getDistances.number_of_human_frames = 8
 //7
 getDistances.number_of_robot_links = 3
 getDistances.number_of_human_limbes = 7
+
 tf.configure
 tf.start
 
-lwr.udp_port=49938
+lwr.local_port=49938
 lwr.configure
 
-RobotState.setPeriod(0.01)
 RobotState.configure()
 
-tfSub.setPeriod(0.05)
 tfSub.configure()
 
 var ConnPolicy cp
 cp.type = DATA
 //cp.size = 10
 cp.lock_policy = LOCKED
-connect("lwr.JointState","RobotState.inJointState",cp)
+connect("lwr.msrJntPos","RobotState.JntPos_i",cp)
 
 var ConnPolicy cp_1
 cp_1.type = DATA
@@ -63,18 +68,16 @@ RobotState.start()
 tfSub.start()
 
 getDistances.configure
-getDistances.setPeriod(0.02)
 
-connect("lwr.JointState", "component_send.jointState", cp)
-connect("lwr.JointVelocityCommand", "component_send.jointVelocitiesCommand", cp)
-connect("component_send.distance", "getDistances.distance", cp)
+connect("lwr.JointState", "friExample.jointState", cp)
+connect("lwr.JointVelocityCommand", "friExample.jointVelocitiesCommand", cp)
+connect("friExample.distance", "getDistances.distance", cp)
 
 stream("getDistances.nav_path", ros.topic("/distances/path"))
 
-component_send.configure
-component_send.setPeriod(0.02)
+friExample.configure
 
 getDistances.start
-component_send.start
+friExample.start
 
 

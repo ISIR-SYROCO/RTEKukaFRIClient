@@ -7,7 +7,7 @@ loadComponent("RobotState","DirectKinematics")
 loadComponent("tfSub","TfRobotSubscriber")
 
 setActivity("lwr",0, 99, ORO_SCHED_RT)
-lwr.udp_port = 49938
+lwr.local_port = 49938
 lwr.configure()
 
 
@@ -21,7 +21,7 @@ var ConnPolicy cp
 cp.type = DATA  
 //cp.size = 10   
 cp.lock_policy = LOCKED 
-connect("lwr.JointState","RobotState.inJointState",cp) 
+connect("lwr.msrJntPos","RobotState.JntPos_i",cp) 
 
 var ConnPolicy cp_1
 cp_1.type = DATA  

@@ -10,11 +10,10 @@ setActivity("lwr",0, 99, ORO_SCHED_RT)
 lwr.udp_port = 49938
 lwr.configure()
 
-
-RobotState.setPeriod(0.01)
+setActivity("RobotState",0.01,0,ORO_SCHED_OTHER)
 RobotState.configure()
 
-tfSub.setPeriod(0.05)
+setActivity("tfSub",0.05,0,ORO_SCHED_OTHER)
 tfSub.configure()
 
 var ConnPolicy cp
